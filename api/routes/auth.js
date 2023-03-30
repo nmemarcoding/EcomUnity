@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const User = require("../models/user.js");
 const CryptoJS = require("crypto-js");
+const auth = require("../middlewear/auth.js");
 const jwt = require("jsonwebtoken");
+
 
 
 
@@ -74,6 +76,8 @@ router.post('/login', async(req, res) => {
     }
 
 });
+
+
 
 
 module.exports = router;
