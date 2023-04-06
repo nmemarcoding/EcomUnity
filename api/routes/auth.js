@@ -9,23 +9,38 @@ const jwt = require("jsonwebtoken");
 
 //REGISTER
 router.post("/register", async(req, res) => {
-    const newUser = new User({
-        username: req.body.username,
-        email: req.body.email,
-        password: CryptoJS.AES.encrypt(
-            req.body.password,
-            "secret"
-        ).toString(),
-    });
+    const { username, email, password, role, firstName, lastName, dateOfBirth, phoneNumber, address, profilePicture } = req.body;
 
     try {
+        // Check if a user with the same username or email already exists
+        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+        if (existingUser) {
+            return res.status(400).json({ error: 'Username or email already in use' });
+        }
+
+        // Create a new user
+        const encryptedPassword = CryptoJS.AES.encrypt(password, "secret").toString();
+        const newUser = new User({
+            username,
+            email,
+            password: encryptedPassword,
+            role,
+            firstName,
+            lastName,
+            dateOfBirth,
+            phoneNumber,
+            address,
+            profilePicture
+        });
+
         const savedUser = await newUser.save();
         res.status(200).json(savedUser);
     } catch (err) {
         res.status(500).json(err);
-        console.log(err)
+        console.log(err);
     }
 });
+
 
 //LOGIN
 
