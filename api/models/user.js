@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema(
     phoneNumber: { type: String },
     address: { type: String,default:"" },
     profilePicture: { type: String },
+    school: { type: mongoose.Schema.Types.ObjectId, ref: "School", required: true },
   },
   { timestamps: true }
 );

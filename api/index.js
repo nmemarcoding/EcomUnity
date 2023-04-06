@@ -20,6 +20,8 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 // schoolRoute
 app.use("/api/schools", require("./routes/schools"));
+// courseRoute
+app.use("/api/courses", require("./routes/course"));
 
 
 app.listen(process.env.PORT || 3002, () => {

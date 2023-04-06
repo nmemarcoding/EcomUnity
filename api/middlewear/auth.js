@@ -35,6 +35,7 @@ function admin(req, res, next) {
         }
         req.userId = decoded.id; // Use the _id claim instead of the userId claim
         req.role = decoded.role;
+        req.school = decoded.school;
         next();
     });
 }
@@ -52,8 +53,10 @@ function teacher(req, res, next) {
         if (decoded.role !== "teacher") {
             return res.status(401).send({ error: 'Unauthorized' });
         }
+      
         req.userId = decoded.id; // Use the _id claim instead of the userId claim
         req.role = decoded.role;
+        req.school = decoded.school;
         next();
     });
 }
@@ -74,6 +77,7 @@ function student(req, res, next) {
         }
         req.userId = decoded.id; // Use the _id claim instead of the userId claim
         req.role = decoded.role;
+        req.school = decoded.school;
         next();
     });
 }

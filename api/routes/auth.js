@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/user.js");
+const School = require("../models/school.js");
 const CryptoJS = require("crypto-js");
 const auth = require("../middlewear/auth.js");
 const jwt = require("jsonwebtoken");
@@ -9,13 +10,19 @@ const jwt = require("jsonwebtoken");
 
 //REGISTER
 router.post("/register", async(req, res) => {
-    const { username, email, password, role, firstName, lastName, dateOfBirth, phoneNumber, address, profilePicture } = req.body;
+    const { username, email, password, role, firstName, lastName, dateOfBirth, phoneNumber, address, profilePicture, school } = req.body;
 
     try {
         // Check if a user with the same username or email already exists
         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
             return res.status(400).json({ error: 'Username or email already in use' });
+        }
+
+        // Check if a school with the same name or ID already exists
+        const existingSchool = await School.findOne({ $or: [{ name: school }, { id: school }] });
+        if (!existingSchool) {
+            return res.status(400).json({ error: 'School not found' });
         }
 
         // Create a new user
@@ -30,7 +37,8 @@ router.post("/register", async(req, res) => {
             dateOfBirth,
             phoneNumber,
             address,
-            profilePicture
+            profilePicture,
+            school: existingSchool._id // Save the school's ID in the user document
         });
 
         const savedUser = await newUser.save();
@@ -40,6 +48,7 @@ router.post("/register", async(req, res) => {
         console.log(err);
     }
 });
+
 
 
 //LOGIN
@@ -73,6 +82,7 @@ router.post('/login', async(req, res) => {
         const accessToken = jwt.sign({
                 id: user._id,
                 role: user.role,
+                school: user.school
             },
             "secret", { expiresIn: "3d" }
         );
