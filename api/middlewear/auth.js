@@ -85,6 +85,7 @@ function godAdmin(req, res, next) {
         return res.status(401).send({ error: 'Unauthorized' });
     }
     jwt.verify(accessToken,"secret", (err, decoded) => {
+       
         if (err) {
             return res.status(401).send({ error: 'Unauthorized' });
         }
