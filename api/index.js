@@ -18,6 +18,8 @@ mongoose
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoute);
+// schoolRoute
+app.use("/api/schools", require("./routes/schools"));
 
 
 app.listen(process.env.PORT || 3002, () => {
