@@ -22,6 +22,9 @@ app.use("/api/auth", authRoute);
 app.use("/api/schools", require("./routes/schools"));
 // courseRoute
 app.use("/api/courses", require("./routes/course"));
+// moduleRoute
+app.use("/api/modules", require("./routes/module"));
+
 
 
 app.listen(process.env.PORT || 3002, () => {
