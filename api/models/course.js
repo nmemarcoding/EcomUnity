@@ -33,6 +33,14 @@ const courseSchema = new mongoose.Schema({
       ref: "Student",
     },
   ],
+  modules: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Module", 
+      default: []
+    },
+  ],
+
 });
 
 const Course = mongoose.model("Course", courseSchema);
