@@ -15,6 +15,7 @@ function auth(req, res, next) {
 
         req.userId = decoded.id; // Use the _id claim instead of the userId claim
         req.role = decoded.role;
+        req.school = decoded.school;
         next();
     });
 }
