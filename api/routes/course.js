@@ -108,28 +108,29 @@ router.get("/student", student, async (req, res) => {
     }
 });
 
-// rout to get course by id and user sould be in the same school as the course and user sould login auth
+// rout to get course by id and user sould be in the same school as the course and user sould login auth and sould be in the course and populate the moudules
 router.get("/:id", auth, async (req, res) => {
     try {
         const courseId = req.params.id;
         const userId = req.userId;
         const schoolId = req.school;
-        
-        // find the course
-        const corse = await Course.find({ _id: courseId });
-        // check if the course is in the same school as the user
-        if (corse[0].school != schoolId) {
-            return res.status(400).json({ error: "User is not in the same school as the course" });
+
+        // find the course and check if the course is in the same school as the user and check if the user is in the course
+        const course = await Course.find({ _id: courseId, school: schoolId }).populate("modules");
+        if (!course) {
+            return res.status(400).json({ error: "Course does not exist" });
         }
-        // check if the user is in the course
-        if (!corse[0].students.includes(userId)) {
+        if (!course[0].students.includes(userId)) {
             return res.status(400).json({ error: "User is not in the course" });
         }
-        res.status(200).json(corse);
+        res.status(200).json(course);
     } catch (err) {
         res.status(500).json(err);
     }
 });
+
+
+
 
 // rout to delete course by id and user sould be in the same school as the course and user sould be teacher
 router.delete("/:id", teacher, async (req, res) => {
@@ -176,6 +177,7 @@ router.put("/:id", teacher, async (req, res) => {
         res.status(500).json(err);
     }
 });
+
 
 
 
