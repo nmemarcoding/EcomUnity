@@ -4,6 +4,7 @@ const School = require("../models/school.js");
 const User = require("../models/user.js");
 const {teacher,student,auth} = require("../middlewear/auth.js");
 const user = require("../models/user.js");
+const mongoose = require('mongoose');
 
 // rout to create new course
 router.post("/", teacher, async (req, res) => {
@@ -93,9 +94,44 @@ router.get("/teacher", teacher, async (req, res) => {
         const courses = await Course.find({ teacher: teacherId });
         res.status(200).json(courses);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
+
+// get curese by id and user sould be in the same school as the course and user sould be teacher
+router.get("/teacher/:id", teacher, async (req, res) => {
+    try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(404).json({ message: 'Invalid course ID' });
+        }
+        const courseId = req.params.id;
+        const userId = req.userId;
+        const schoolId = req.school;
+
+        // find the course and check if the course is in the same school as the user and check if the user is the teacher of the course
+        const course = await Course.findOne({ _id: courseId}).populate({
+            path: "students",
+            select: "firstName lastName email _id",
+        })
+        .populate("modules").populate({
+            path: "modules",
+            populate: {
+                path: "assignments",
+                model: "Assignment"
+            }
+        });
+        if (!course) {
+            return res.status(400).json({ error: "Course does not exist" });
+        }
+        res.status(200).json(course);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+
 
 // rout to get all courses by student
 router.get("/student", student, async (req, res) => {
