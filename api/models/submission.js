@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const submissionSchema = new mongoose.Schema({
-  student: {
+  studentId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  assignment: {
+  assignmentId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Assignment',
     required: true
@@ -23,8 +23,11 @@ const submissionSchema = new mongoose.Schema({
   feedback: String,
   files: [{
     name: String,
-    url: String
-  }]
+    url: String,
+    type: String,
+  }],
+  content : String
+
 });
 
 const Submission = mongoose.model('Submission', submissionSchema);

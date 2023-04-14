@@ -4,7 +4,10 @@ const Course = require("../models/course.js");
 const School = require("../models/school.js");
 const User = require("../models/user.js");
 const Assignment = require("../models/assignment.js");
+const mongoose = require("mongoose");
+const Submission = require("../models/submission.js");
 const {teacher,student,auth} = require("../middlewear/auth.js");
+
 
 // rout to create new module check if user is teacher and is the teacher of the course andd module id to course
 router.post("/", teacher, async (req, res) => {
@@ -55,11 +58,13 @@ router.post("/assignment", teacher, async (req, res) => {
         // Get the teacher id from the token
         const teacherId = req.userId;
         const schoolId = req.school;
-
+        if (!mongoose.Types.ObjectId.isValid(moduleId)) {
+          return res.status(404).json({ message: 'Invalid course ID' });
+        }
         // finding the module
         const model = await Module.findOne({ _id: moduleId });
         if (!model) {
-            return res.status(400).json({ error: "Module is exist" });
+            return res.status(400).json({ error: "Module is not exist" });
         }
 
         // Check if the teacher is the teacher of the module
@@ -92,6 +97,47 @@ router.post("/assignment", teacher, async (req, res) => {
 });
 
 
+//  creat rout to psot student submissions check if user is student and is the student of the course andd submission id to assignment
+router.post("/assignment/submission", student, async (req, res) => {
+    const { assignmentId, content,files } = req.body;
+    try {
+        // Get the student id from the token
+        const studentId = req.userId;
+        const schoolId = req.school;
+        if (!mongoose.Types.ObjectId.isValid(assignmentId)) {
+          return res.status(404).json({ message: 'Invalid assignment ID' });  
+        }
+        // finding the assignment
+        const assignment = await Assignment.findOne({ _id: assignmentId });
+        if (!assignment) {
+            return res.status(400).json({ error: "Assignment is not exist" });
+        }
+
+       
+        // Check if a submission with the same studentId and assigmentId already exists for the assignment
+        const existingSubmssion = await Submission.findOne({ studentId: studentId, assignmentId: assignmentId });
+        if (existingSubmssion) {
+          return res.status(400).json({ error: "A submission with the same studentId and assigmentId already exists for the assignment" });
+        }
+
+        // Create a new submission
+        const newSubmission = new Submission({ studentId, assignmentId, content,files });
+        const savedSubmission = await newSubmission.save();
+
+        // adding submission id to assignment
+        assignment.submissions.push(savedSubmission._id);
+        await assignment.save();
+
+        res.status(200).json(savedSubmission);
+    } catch (err) {
+
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+
+      
 
 
 

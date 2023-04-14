@@ -19,7 +19,13 @@ const assignmentSchema = new mongoose.Schema({
   moduleId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Module'
-  }
+  },
+  submissions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Submission',
+    default: []
+  }]
+
 });
 
 const Assignment = mongoose.model('Assignment', assignmentSchema);
