@@ -18,7 +18,8 @@ const submissionSchema = new mongoose.Schema({
   grade: {
     type: Number,
     min: 0,
-    max: 100
+    max: 100,
+    default: null
   },
   feedback: String,
   files: [{

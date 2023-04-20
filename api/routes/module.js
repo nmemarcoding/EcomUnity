@@ -136,6 +136,37 @@ router.post("/assignment/submission", student, async (req, res) => {
     }
 });
 
+// post rout for teacher to grade student submission
+router.post("/assignment/submission/grade", teacher, async (req, res) => {
+    const { submissionId, grade } = req.body;
+    try {
+        // Get the teacher id from the token
+        const teacherId = req.userId;
+        const schoolId = req.school;
+        if (!mongoose.Types.ObjectId.isValid(submissionId)) {
+          return res.status(404).json({ message: 'Invalid submission ID' });
+        }
+        // finding the submission
+        const submission = await Submission.findOne({ _id: submissionId });
+        if (!submission) {
+            return res.status(400).json({ error: "Submission is not exist" });
+        }
+
+   
+        // Create a new submission
+        submission.grade = grade;
+        const savedSubmission = await submission.save();
+
+        res.status(200).json(savedSubmission);
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+
+
 
       
 
