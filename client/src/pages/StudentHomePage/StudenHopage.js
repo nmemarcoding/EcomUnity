@@ -6,7 +6,7 @@ import StudentSideMenu from "../../components/studentSideMenu/StudentSideMenu"
 
 export default function StudenHopage() {
     const [navbarMenu,setNavbarMenu] = useState(false)
-
+    const [pages,setPages] = useState({courses:false,massage:false,grades:false,tools:false})
     // function to change classes on div with id menu to make it visible and 100% width on top of all other elements and allso add exit button  
     const showMenu = () => {
         if(navbarMenu){
@@ -16,6 +16,16 @@ export default function StudenHopage() {
             setNavbarMenu(true)
         }
     }
+
+   
+    const handleOnClick = (e) => {
+        // set every page to false and the page that we want to show to true e
+        setPages({courses:false,massage:false,grades:false,tools:false,[e]:true})
+    }
+
+    // useEffect(() to console.log(pages) when ever pages change
+   
+
 
     
   return (
@@ -37,17 +47,17 @@ export default function StudenHopage() {
             </div>
         </div>
         {/* if navnarMenu is ture show StudentsideMenue on top of everything  */}
-        {navbarMenu && <StudentSideMenu/>}
+        {navbarMenu && <StudentSideMenu onClick={handleOnClick}/>}
 
         <dive className="w-screen h-screen flex">
                 
             {/* left contaner with 1/6 width and 100% height */} 
             <div className="h-full w-1/6 hidden md:block">
-            <StudentSideMenu/>
+            <StudentSideMenu onClick={handleOnClick}/>
             </div>
             {/* right container with 5/6 width and 100% height */}
             <div className="w-screen md:w-5/6 h-full bg-gray-300">
-                <Courses/>
+                {pages.courses && <Courses/>}
             </div>
             
         </dive>
