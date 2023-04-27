@@ -2,6 +2,7 @@ import { BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 import { publicRequest } from './hooks/requestMethods';
 import { useEffect, useState } from 'react';
 import StudentHomePage from './pages/StudentHomePage/StudenHopage';
+import CoursePage from './pages/CoursePage/StudentCoursePage';
 function App() {
   const [serveIsRunning, setServeIsRunning] = useState(false)
   useEffect(() => {
@@ -37,7 +38,8 @@ function App() {
               <Route path="/" element={<></>}/>
               // studentHomePage
               <Route path="/studenthomepage" element={<StudentHomePage/>}/>
-              
+              {/*CoursePage route with id */}
+              <Route path="/course/:id" element={<CoursePage/>}/>
               
               
             </Routes>

@@ -1,13 +1,8 @@
-import { useEffect,useState } from "react"
-import Courses from "../../components/courses/StudentCourseList"
-import StudentSideMenu from "../../components/studentSideMenu/StudentSideMenu"
+import {useState}from 'react'
+import StudentCourseSideMenu from '../../components/StudentCourseSideMenu/StudentCourseSideMenu'
 
-
-
-export default function StudenHopage() {
+export default function CoursePage() {
     const [navbarMenu,setNavbarMenu] = useState(false)
-    const [pages,setPages] = useState({courses:false,massage:false,grades:false,tools:false})
-    // function to change classes on div with id menu to make it visible and 100% width on top of all other elements and allso add exit button  
     const showMenu = () => {
         if(navbarMenu){
             setNavbarMenu(false)
@@ -15,21 +10,10 @@ export default function StudenHopage() {
         else{
             setNavbarMenu(true)
         }
+        
     }
-
-   
-    const handleOnClick = (e) => {
-        // set every page to false and the page that we want to show to true e
-        setPages({courses:false,massage:false,grades:false,tools:false,[e]:true})
-    }
-
-    // useEffect(() to console.log(pages) when ever pages change
-   
-
-
-    
   return (
-    <div className="w-screen">
+    <div className="w-screen h-screen">
         {/* navbar shows on medum and smaler device size */}
         <div className="w-screen h-16 bg-gray-800 flex items-center justify-between md:hidden text-white" onClick={showMenu} >
             <button className="flex items-center">
@@ -47,17 +31,17 @@ export default function StudenHopage() {
             </div>
         </div>
         {/* if navnarMenu is ture show StudentsideMenue on top of everything  */}
-        {navbarMenu && <StudentSideMenu onClick={handleOnClick}/>}
+        {navbarMenu && <StudentCourseSideMenu />}
 
         <dive className="w-screen h-screen flex">
                 
             {/* left contaner with 1/6 width and 100% height */} 
-            <div className="h-full w-1/6 hidden md:block">
-            <StudentSideMenu onClick={handleOnClick}/>
+            <div className="h-full w-1/6 hidden md:block overflow-y-auto overflow-x-hidden ">
+            <StudentCourseSideMenu />
             </div>
             {/* right container with 5/6 width and 100% height */}
             <div className="w-screen md:w-5/6 h-full bg-gray-300">
-                {pages.courses && <Courses/>}
+                
             </div>
             
         </dive>

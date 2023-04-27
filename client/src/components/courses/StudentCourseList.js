@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Courses() {
+    
   return (
     <div className='m-4'>
         {/* bar on top of the corse to say Courses */}
