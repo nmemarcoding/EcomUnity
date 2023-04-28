@@ -1,5 +1,6 @@
 import {useState}from 'react'
 import StudentCourseSideMenu from '../../components/StudentCourseSideMenu/StudentCourseSideMenu'
+import StudentCoursMaterial from '../../components/StudentCoursMaterial/StudentCoursMaterial'
 
 export default function CoursePage() {
     const [navbarMenu,setNavbarMenu] = useState(false)
@@ -40,8 +41,8 @@ export default function CoursePage() {
             <StudentCourseSideMenu />
             </div>
             {/* right container with 5/6 width and 100% height */}
-            <div className="w-screen md:w-5/6 h-full bg-gray-300">
-                
+            <div className="w-screen md:w-5/6 h-full bg-gray-300 overflow-y-auto overflow-x-hidden p-4">
+                <StudentCoursMaterial/>
             </div>
             
         </dive>

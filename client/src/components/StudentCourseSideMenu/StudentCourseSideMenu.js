@@ -12,12 +12,12 @@ export default function StudentCourseSideMenu(props) {
     <div>
         <div className="w-screen h-screen bg-gray-800  pt-6 text-white overflow-y-auto" id="menu">
             {/* button to show corese title */}
-            <span className='flex'>dssdfsdfdssfsfsfsfdfdsfsdfsfsdfsd</span>
+       
             <button className="w-full h-12 hover:bg-green-500 mb-4 flex items-center" onClick={handleOnClick}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path  strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
-                <span className="ml-4 break-words" id="title">Title aaaaaassssssssssssssssa</span>
+                <span className="ml-4 break-words" id="title">Title</span>
             </button>
             {/* announcments btn */}
             <button className="w-full h-12 hover:bg-green-500 mb-4 flex items-center" >
