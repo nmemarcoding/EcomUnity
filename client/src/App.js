@@ -3,6 +3,8 @@ import { publicRequest } from './hooks/requestMethods';
 import { useEffect, useState } from 'react';
 import StudentHomePage from './pages/StudentHomePage/StudenHopage';
 import CoursePage from './pages/CoursePage/StudentCoursePage';
+import StudentAsigmnetSubmitionPage from './pages/StudentAsigmnetSubmitionPage/StudentAsigmnetSubmitionPage';
+
 function App() {
   const [serveIsRunning, setServeIsRunning] = useState(false)
   useEffect(() => {
@@ -40,6 +42,11 @@ function App() {
               <Route path="/studenthomepage" element={<StudentHomePage/>}/>
               {/*CoursePage route with id */}
               <Route path="/course/:id" element={<CoursePage/>}/>
+              {/* assignment route with id */}
+              <Route path="/assignment/:id" element={<StudentAsigmnetSubmitionPage/>}/>
+             
+
+              
               
               
             </Routes>
