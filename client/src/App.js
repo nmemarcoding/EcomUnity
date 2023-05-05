@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import StudentHomePage from './pages/StudentHomePage/StudenHopage';
 import CoursePage from './pages/CoursePage/StudentCoursePage';
 import StudentAsigmnetSubmitionPage from './pages/StudentAsigmnetSubmitionPage/StudentAsigmnetSubmitionPage';
+import TeacherHomePage from './pages/TeacherHomePage/TeacherHomePage';
 
 function App() {
   const [serveIsRunning, setServeIsRunning] = useState(false)
@@ -44,7 +45,8 @@ function App() {
               <Route path="/course/:id" element={<CoursePage/>}/>
               {/* assignment route with id */}
               <Route path="/assignment/:id" element={<StudentAsigmnetSubmitionPage/>}/>
-             
+             {/* teacher rout */} 
+              <Route path="/teacher" element={<TeacherHomePage/>}/>
 
               
               

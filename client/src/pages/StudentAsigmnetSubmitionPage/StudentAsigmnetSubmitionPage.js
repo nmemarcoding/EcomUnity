@@ -27,7 +27,7 @@ export default function StudentAsigmnetSubmitionPage() {
         
         <br></br>
         
-        <div className="w-full h-20 bg-gray-100 shadow-lg flex items-center justify-center text-center" onClick={PreviewOnClik}>
+        <div className="w-full h-20 bg-gray-100 shadow-lg flex items-center justify-center text-center hover:bg-gray-200" onClick={PreviewOnClik}>
             <span className="ml-0 text-2xl">Assignment Preview</span>
         </div >
         

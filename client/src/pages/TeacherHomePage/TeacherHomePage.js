@@ -1,10 +1,11 @@
 import { useEffect,useState } from "react"
 import Courses from "../../components/courses/StudentCourseList"
 import MainSideBar from "../../components/MainSideBar/MainSideBar"
+import StudentSideMenu from "../../components/MainSideBar/MainSideBar"
 
 
 
-export default function StudenHopage() {
+export default function TeacherHomePage() {
     const [navbarMenu,setNavbarMenu] = useState(false)
     const [pages,setPages] = useState({courses:false,massage:false,grades:false,tools:false})
     // function to change classes on div with id menu to make it visible and 100% width on top of all other elements and allso add exit button  
@@ -48,11 +49,20 @@ export default function StudenHopage() {
         </div>
         {/* if navnarMenu is ture show StudentsideMenue on top of everything  */}
         {navbarMenu && <MainSideBar onClick={handleOnClick} options={
-                [{name:"Courses",id:"courses"},
-                {name:"Massage",id:"massage"},
-                {name:"Grades",id:"grades"},
-                {name:"Tools",id:"tools"},
-                {name:"sign out",id:"sign out"}]
+                [
+                    { name: "Home/ Dashboard", id: "home" },
+                    { name: "Courses", id: "courses" },
+                    { name: "Gradebook", id: "grades" },
+                    { name: "Assignments", id: "assignments" },
+                    { name: "Discussions", id: "discussions" },
+                    { name: "Calendar" },
+                    { name: "Messages", id: "messages" },
+                    { name: "Resources", id: "resources" },
+                    { name: "Settings", id: "settings" },
+                    { name: "Help/Support", id: "help" },
+                    {name:"Sign out",id:"sign-out"}
+                ]
+                
             }/>}
 
         <dive className="w-screen h-screen flex">
@@ -60,11 +70,20 @@ export default function StudenHopage() {
             {/* left contaner with 1/6 width and 100% height */} 
             <div className="h-full w-1/6 hidden md:block">
             <MainSideBar onClick={handleOnClick} options={
-                [{name:"Courses",id:"courses"},
-                {name:"Massage",id:"massage"},
-                {name:"Grades",id:"grades"},
-                {name:"Tools",id:"tools"},
-                {name:"sign out",id:"sign out"}]
+                [
+                    { name: "Home/ Dashboard", id: "home" },
+                    { name: "Courses", id: "courses" },
+                    { name: "Gradebook", id: "grades" },
+                    { name: "Assignments", id: "assignments" },
+                    { name: "Discussions", id: "discussions" },
+                    { name: "Calendar" },
+                    { name: "Messages", id: "messages" },
+                    { name: "Resources", id: "resources" },
+                    { name: "Settings", id: "settings" },
+                    { name: "Help/Support", id: "help" },
+                    {name:"Sign out",id:"sign-out"}
+                ]
+                
             }/>
             </div>
             {/* right container with 5/6 width and 100% height */}
