@@ -5,6 +5,8 @@ import StudentHomePage from './pages/StudentHomePage/StudenHopage';
 import CoursePage from './pages/CoursePage/StudentCoursePage';
 import StudentAsigmnetSubmitionPage from './pages/StudentAsigmnetSubmitionPage/StudentAsigmnetSubmitionPage';
 import TeacherHomePage from './pages/TeacherHomePage/TeacherHomePage';
+import LoginPage from './pages/LoginPgae/LoginPage';
+import SignupPage from './pages/SingUpPage/SignUpPage';
 
 function App() {
   const [serveIsRunning, setServeIsRunning] = useState(false)
@@ -47,9 +49,10 @@ function App() {
               <Route path="/assignment/:id" element={<StudentAsigmnetSubmitionPage/>}/>
              {/* teacher rout */} 
               <Route path="/teacher" element={<TeacherHomePage/>}/>
-
-              
-              
+              {/* loging page route */}
+              <Route path="/login" element={<LoginPage/>}/>              
+              {/* sign up page route */}
+              <Route path="/signup" element={<SignupPage/>}/>
               
             </Routes>
           </div>
