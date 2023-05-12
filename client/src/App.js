@@ -7,8 +7,14 @@ import StudentAsigmnetSubmitionPage from './pages/StudentAsigmnetSubmitionPage/S
 import TeacherHomePage from './pages/TeacherHomePage/TeacherHomePage';
 import LoginPage from './pages/LoginPgae/LoginPage';
 import SignupPage from './pages/SingUpPage/SignUpPage';
+import useStore from './store';
 
 function App() {
+  // creat useEffect
+  // const addUserInfo = useStore(sate=>sate.addUserInfo)
+  // addUserInfo({name:"mohammad"})
+  console.log(useStore(sate=>sate.userInf))
+ 
   const [serveIsRunning, setServeIsRunning] = useState(false)
   useEffect(() => {
     publicRequest().get("/start")
